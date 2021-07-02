@@ -766,34 +766,24 @@ Wire Wire Line
 	1400 3900 1400 4500
 Wire Wire Line
 	1300 4100 1350 4100
-Wire Wire Line
-	1350 4100 1350 3650
 $Comp
 L power:+3V3 #PWR0125
 U 1 1 6114B426
-P 1350 3650
-F 0 "#PWR0125" H 1350 3500 50  0001 C CNN
-F 1 "+3V3" H 1365 3823 50  0000 C CNN
-F 2 "" H 1350 3650 50  0001 C CNN
-F 3 "" H 1350 3650 50  0001 C CNN
-	1    1350 3650
+P 1350 3400
+F 0 "#PWR0125" H 1350 3250 50  0001 C CNN
+F 1 "+3V3" H 1365 3573 50  0000 C CNN
+F 2 "" H 1350 3400 50  0001 C CNN
+F 3 "" H 1350 3400 50  0001 C CNN
+	1    1350 3400
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	1600 4000 1300 4000
-Wire Wire Line
-	1600 4200 1300 4200
-Wire Wire Line
-	1600 4300 1300 4300
-Wire Wire Line
-	1600 4400 1300 4400
-Text GLabel 1600 4000 2    50   Input ~ 0
+Text GLabel 1750 4000 2    50   Input ~ 0
 ESP32_IO0
-Text GLabel 1600 4200 2    50   Input ~ 0
+Text GLabel 1750 4200 2    50   Input ~ 0
 ESP32_TXD0
-Text GLabel 1600 4300 2    50   Input ~ 0
+Text GLabel 1750 4300 2    50   Input ~ 0
 ESP32_RXD0
-Text GLabel 1600 4400 2    50   Input ~ 0
+Text GLabel 1750 4400 2    50   Input ~ 0
 ESP32_EN
 Text GLabel 1800 2450 0    50   Input ~ 0
 G_EC_M
@@ -1739,4 +1729,39 @@ Wire Wire Line
 Connection ~ 2450 6600
 Wire Wire Line
 	2450 6600 2450 6900
+$Comp
+L Device:R_US R?
+U 1 1 60E2809B
+P 1600 3750
+AR Path="/6036C67E/60E2809B" Ref="R?"  Part="1" 
+AR Path="/603346A0/60E2809B" Ref="R54"  Part="1" 
+F 0 "R54" H 1668 3796 50  0000 L CNN
+F 1 "10k" H 1668 3705 50  0000 L CNN
+F 2 "hydromisc:HM_0603" V 1640 3740 50  0001 C CNN
+F 3 "~" H 1600 3750 50  0001 C CNN
+	1    1600 3750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1300 4000 1750 4000
+Wire Wire Line
+	1300 4200 1750 4200
+Wire Wire Line
+	1300 4300 1750 4300
+Wire Wire Line
+	1300 4400 1600 4400
+Wire Wire Line
+	1600 3900 1600 4400
+Connection ~ 1600 4400
+Wire Wire Line
+	1600 4400 1750 4400
+Wire Wire Line
+	1600 3600 1600 3500
+Wire Wire Line
+	1600 3500 1350 3500
+Connection ~ 1350 3500
+Wire Wire Line
+	1350 3500 1350 4100
+Wire Wire Line
+	1350 3400 1350 3500
 $EndSCHEMATC
