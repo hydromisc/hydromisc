@@ -1,0 +1,3 @@
+(sym_lib_table
+  (lib (name hydromisc)(type Legacy)(uri ${KIPRJMOD}/hydromisc.lib)(options "")(descr ""))
+)
