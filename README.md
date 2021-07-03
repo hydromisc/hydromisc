@@ -8,7 +8,7 @@ process involving water treatment. Inputs and outputs include:
 * 8x 12 V, 1 A outputs, intended for solenoid valves (but usable for other
 actuators too)
 * 6x 12 V, 0.5 A ouputs, intended for pumps, with current monitoring
-* 4x 12 V, 0.5 A outputs, intended for peristaltic dosing pumps, with analog
+* 4x 12 V, 0.25 A outputs, intended for peristaltic dosing pumps, with analog
 voltage control
 * 2x direct interfaces to a pH probe or other ion-selective electrode
 * 2x direct interfaces to an EC probe, reading around 1000 uS
