@@ -21,7 +21,7 @@ Typical hydroponic practice is to maintain the solution at a target EC and
 pH, using EC as a proxy for fertilizer concentration and dosing acid or
 (rarely) alkali to adjust pH. I'm using this board now to control injector
 pumps in a drain-to-waste system, open-loop with manual adjustment, and
-also to to maintain closed-loop EC and pH in a recirculating system.
+also to maintain closed-loop EC and pH in a recirculating system.
 
 ![all connectors labeled](https://raw.githubusercontent.com/hydromisc/hydromisc/master/doc/pcba-top.jpg)
 
