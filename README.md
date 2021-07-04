@@ -1,6 +1,6 @@
 # Hydromisc
 
-This a single PCBA with all the necessary I/O to automate a typical
+This is a single PCBA with all the necessary I/O to automate a typical
 small to mid-size hydroponic grow, controllable over Wi-Fi. It may also
 be suitable for aquariums, ponds, or any other biological or chemical
 process involving water treatment. Inputs and outputs include:
@@ -11,14 +11,17 @@ actuators too)
 * 4x 12 V, 0.25 A outputs, intended for peristaltic dosing pumps, with analog
 voltage control
 * 2x direct interfaces to a pH probe or other ion-selective electrode
-* 2x direct interfaces to an EC probe, reading around 1000 uS
+* 2x direct interfaces to an EC (electrical conductivity) probe, reading around 1000 uS
 * 2x direct interfaces to a resistive sensor (thermistor, photoresistor,
 etc.), reading around 10k
 * 2x digital interface to a temperature and humidity sensor
 * 2x digital interface to a strain gauge (to measure weight or pressure)
 
-I'm using this now to control injector pumps in a drain-to-waste system,
-and also to maintain pH and EC in a recirculating system.
+Typical hydroponic practice is to maintain the solution at a target EC and
+pH, using EC as a proxy for fertilizer concentration and dosing acid or
+(rarely) alkali to adjust pH. I'm using this board now to control injector
+pumps in a drain-to-waste system, open-loop with manual adjustment, and
+also to to maintain closed-loop EC and pH in a recirculating system.
 
 ![all connectors labeled](https://raw.githubusercontent.com/hydromisc/hydromisc/master/doc/pcba-top.jpg)
 
@@ -118,7 +121,7 @@ example:
 
     const slope = (V69 - V40)/(6.9 - 4.0);
 
-    let ph = 6.9 + (resp.ph0 - V69)*slope;
+    let ph = 6.9 + (resp.ph0 - V69)/slope;
 
 Your software must also correct for temperature if desired; though in
 typical hydroponic applications, the pH is close enough to neutral that
