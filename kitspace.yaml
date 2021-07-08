@@ -1,0 +1,4 @@
+eda:
+  type: kicad
+  pcb: board/hydromisc.kicad_pcb
+bom: board/fab/hydromisc-bill-of-materials-revB.csv
