@@ -241,9 +241,12 @@ buy the bare PCB and parts kit, and assemble yourself. This PCBA has no
 leadless or fine-pitch components, so it can be hand-assembled with a
 soldering iron and moderate skill.
 
-Note that rev A of the PCB has an erratum, a missing pull-up on ESP32_EN.
-I've fixed that in rev B (which is the head revision in git). This is a
-small change that should present low risk, but it hasn't been tested yet.
+Note that rev A of the PCB has one major erratum, a missing pull-up on
+ESP32_EN, plus some smaller issues that degrade analog performance. I've
+corrected these in rev C, which is the head revision in git, but never
+actually built and tested that. So it's possible there's still a mistake,
+though the risk should be small. Full details of the changes are in
+[board/README.md](https://github.com/hydromisc/hydromisc/blob/master/board/README.md).
 
 Total cost to build one board is around:
 
@@ -365,14 +368,23 @@ flux, though I live in a dry climate and it would be better to clean that.
 
 Since the pH electrode voltage may be positive or negative and we don't
 have a negative supply, we connect its "ground" to a 1.2 V reference. This
-means that any electrical connection between our circuit ground and the
-solution being measured will result in an incorrect measurement, though
-we include series resistors so it at least won't result in permanent
-damage. The shield of the BNC connectors is 1.2 V, not ground. As long as
-the board is powered from an isolated power supply (for example, a typical
-mains-operated power brick), no further attention should be required;
-but take care not to de-isolate it, for example by attaching board ground
-to any metal that touches the solution.
+means that any electrical connection between our circuit ground and
+the solution being measured will result in an incorrect measurement,
+though the shunt regulator that generates that rail can survive a short
+to ground without damage. The shield of the BNC connectors is 1.2 V,
+not ground. As long as the board is powered from an isolated power supply
+(for example, a typical mains-operated power brick), no further attention
+should be required; but take care not to de-isolate it, for example by
+attaching board ground to any metal that touches the solution.
+
+Even with DC isolation, a significant 60 Hz (or 50 Hz) component may
+be present on the pH probe voltage. If this saturates the front-end
+amplifier, then no subsequent low-pass could recover the correct DC
+voltage. We address this with a capacitor across the pH probe. The
+resulting low-pass time constant is poorly-controlled, since it's a
+function of the probe output resistance.  That's fine in practice though,
+since pH shouldn't change significantly over any timescale faster than
+minutes.
 
 We pull both sides of the EC electrode up to +3V3 through 1k
 resistors, so they both rest at +3V3 with respect to circuit ground, 0 V

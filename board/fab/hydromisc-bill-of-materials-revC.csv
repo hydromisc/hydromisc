@@ -1,8 +1,8 @@
-"hydromisc bill of materials, rev B, Jul 2021",,,,
+"hydromisc bill of materials, rev C, Aug 2021",,,,
 ,,,,
 Qty,Reference Designators,Value,Description,Digi-Key P/N
 16,"C1, C2, C8, C14, C18, C20, C21, C22, C23, C24, C26, C29, C30, C34, C37, C38, ",22u,"capacitor, 1206, MLCC, 16 V, X5R",1276-2728-1-ND
-16,"C3, C4, C5, C10, C15, C16, C17, C19, C25, C27, C28, C31, C32, C33, C35, C36, ",100n,"capacitor, 0603, MLCC, 25 V, X7R",1276-1006-1-ND
+18,"C3, C4, C5, C10, C15, C16, C17, C19, C25, C27, C28, C31, C32, C33, C35, C36, C39, C40, ",100n,"capacitor, 0603, MLCC, 25 V, X7R",1276-1006-1-ND
 6,"C6, C7, C9, C11, C12, C13, ",220u,"capacitor, electrolytic, 25 V, through-hole radial",399-6112-ND
 1,"CN1, ",,"connector, DC power, coaxial, 2.1 mm",CP-102AH-ND
 6,"CN2, CN7, CN8, CN9, CN10, CN11, ",,"connector, Mini-Fit Jr., 2x1",WM16206-ND
@@ -26,9 +26,10 @@ Qty,Reference Designators,Value,Description,Digi-Key P/N
 3,"R1, R33, R34, ",33k,"resistor, 0603, 1%",CR0603-FX-3302ELFCT-ND
 5,"R2, R24, R31, R32, R54, ",10k,"resistor, 0603, 1%",CR0603-FX-1002ELFCT-ND
 1,"R3, ",10k,"trimpot, through-hole",478-601030-ND
-42,"R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16, R17, R18, R20, R23, R25, R26, R27, R28, R29, R30, R35, R36, R37, R38, R39, R40, R41, R42, R43, R44, R45, R46, R47, R50, R51, R52, R53, R55, R56, ",1k,"resistor, 0603, 1%",CR0603-FX-1001ELFCT-ND
+40,"R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16, R17, R18, R20, R23, R25, R26, R27, R28, R29, R30, R35, R36, R37, R38, R39, R40, R42, R44, R45, R46, R47, R50, R51, R52, R53, R55, R56, ",1k,"resistor, 0603, 1%",CR0603-FX-1001ELFCT-ND
 1,"R19, ",2.2,"resistor, 2010, 5%",RMCF2010JT2R20CT-ND
-1,"R21, ",zerohm,"resistor, 1206, zero-ohm",311-0.0ERTR-ND 
+1,"R21, ",zerohm,"resistor, 1206, zero-ohm",311-0.0ERTR-ND
+2,"R41, R43, ",zerohm,"resistor, 0603, zero-ohm",311-0.0HRTR-ND
 1,"R22, ",,do not populate,
 2,"R48, R49, ",,do not populate,
-1,"U1, ",,"ESP32 module with integrated antenna, 16 MB",1965-ESP32-WROOM-32E(16MB)CT-ND 
+1,"U1, ",,"ESP32 module with integrated antenna, 16 MB",1965-ESP32-WROOM-32E(16MB)CT-ND

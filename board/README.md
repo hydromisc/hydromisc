@@ -1,4 +1,4 @@
-There are two revisions of the PCB:
+There are three revisions of the PCB:
 
 * rev A - I built this, and it works except that I forgot the pull-up on
 ESP32_EN. Solder a 10k resistor from ESP32_EN to +3V3 (for example, near
@@ -12,9 +12,16 @@ original, up to 2 mA! A lightly-loaded Vuser may lose regulation when
 Ileakage\*Rpulldown > Vsetpoint, and that R was previously just the
 feedback divider.
 
-The head revision in git is rev B; but I've never actually built this
+* rev C - This adds capacitors to create a passive low-pass on the pH
+inputs, improving 60 Hz (or 50 Hz) rejection and thus reducing noise
+e.g. when the probe is connected with long wires. It also changes the
+series resistors between Vref and the BNC shield from 1k to zero-ohm,
+since the shunt regulator that makes Vref can survive a short-circuit
+to ground with no problem and that resistance worsens noise performance.
+
+The head revision in git is rev C; but I've never actually built this
 revision, so it's possible there's still a mistake. That risk should be
-very small, though. I'll amend this note if/when someone builds rev B
+very small, though. I'll amend this note if/when someone builds rev C
 and reports back.
 
 This is a two-layer board, designed to PCBWay's standard design rules.
