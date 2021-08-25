@@ -285,6 +285,9 @@ EC electrode | $15
 3x aquarium-type dosing pump | $30
 water fill solenoid valve | $15
 
+See my brief
+[review of the sensors and actuators now cheaply available on Chinese markets](https://github.com/hydromisc/hydromisc/blob/master/doc/sensors-actuators.md).
+
 Then you might periodically (e.g., minutes to hours) measure EC and pH
 with /sensors. You could also monitor solution level, using another EC
 electrode positioned high in the tank or using a float switch. The board
