@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<!-- 
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+    Copyright 2021 hydromisc contributors
+
+    This single file contains the entire application, and can be downloaded
+    and saved for offline use.
+-->
+<html>
+
+
+<head>
+<meta charset="utf-8">
+<title>Hydromisc Nutrient Calculator</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js">
+</script>
+
+<style type=text/css>
+    body {
+        font-family: sans-serif;
+        font-size: 1.25em;
+    }
+    td, input, button {
+        font-size: 1em;
+        white-space: nowrap;
+    }
+    h1 {
+        font-size: 1.5em;
+        margin-bottom: 0;
+    }
+
+    tr.line td {
+        border-top: 1px solid black;
+    }
+
+    input[type="text"] {
+        width: 4em;
+        text-align: right;
+    }
+    input:read-only {
+        background: #eee;
+        border: 1px solid #888;
+    }
+
+    button {
+        margin-right: 1em;
+    }
+
+    p {
+        max-width: 70em;
+    }
+</style>
+
+<script>
+const elements = [
+    'N NO3-', 'N NH4+', 'N total', 'P', 'K', 'Ca', 'Mg', 'S', 'Fe', 'Cu',
+    'Mn', 'Zn', 'B', 'Mo',
+];
+const elementToIndex = { };
+let i;
+for(i = 0; i < elements.length; i++) {
+    elementToIndex[elements[i]] = i;
+}
+
+const goals = {
+    'UFL1' : [
+        65, 5, 70, 50, 120, 150, 40, 50, 2.8, 0.2, 0.8, 0.3, 0.7, 0.05,
+    ],
+    'UFL5' : [
+        140, 10, 150, 50, 200, 150, 50, 60, 2.8, 0.2, 0.8, 0.3, 0.7, 0.05,
+    ],
+    'CL' : [
+        113, 12, 115, 31, 215, 84, 24, 35, 0.94, 0.03, 0.14, 0.13, 0.16, 0.03,
+    ],
+    'longashton' : [
+        168, 0, 168, 41, 156, 160, 36, 48, 2.8, 0.06, 0.55, 0.06, 0.54, 0.05,
+    ],
+};
+const P2O5_to_P = 0.436;
+const K2O_to_K = 0.83;
+const CaO_to_Ca = 0.71;
+
+const ingredients = [
+    {
+        'name'  : 'Masterblend 4-18-38',
+        'N NO3-': 3.5e4,
+        'N NH4+': 0.5e4,
+        'P'     : 18e4*P2O5_to_P,
+        'K'     : 38e4*K2O_to_K,
+        'Mg'    : 0.5e4,
+        'Fe'    : 0.4e4,
+        'Cu'    : 0.05e4,
+        'Mn'    : 0.2e4,
+        'Zn'    : 0.05e4,
+        'B'     : 0.2e4,
+        'Mo'    : 0.01e4,
+    },
+    {
+        'name'  : 'Jack\'s 5-12-26',
+        'N NO3-': 5e4,
+        'P'     : 12e4*P2O5_to_P,
+        'K'     : 26e4*K2O_to_K,
+        'Mg'    : 6.3e4,
+        'S'     : 8.5e4,
+        'B'     : 0.05e4,
+        'Cu'    : 0.015e4,
+        'Fe'    : 0.3e4,
+        'Mn'    : 0.05e4,
+        'Mo'    : 0.019e4,
+        'Zn'    : 0.015e4,
+    },
+    {
+        'name'  : 'Calcium Nitrate, CALCINIT',
+        'N NO3-': 14.4e4,
+        'N NH4+': 1.1e4,
+        'Ca'    : 26.3e4*CaO_to_Ca,
+    },
+    {
+        'name'  : 'Magnesium Sulfate, Southern Ag',
+        'Mg'    : 15e4,
+        'S'     : 19.8e4,
+    },
+    {
+        'name'  : 'Magnesium Nitrate, Select Magnific',
+        'Mg'    : 9.6e4,
+        'N NO3-': 11e4,
+    },
+    {
+        'name'  : 'Potassium Nitrate, Krista K',
+        'N NO3-': 13.7e4,
+        'K'     : 46e4*K2O_to_K,
+    },
+    {
+        'name'  : 'Potassium Sulfate, Haifa',
+        'K'     : 51e4*K2O_to_K,
+        'S'     : 18e4,
+    },
+    {
+        'name'  : 'Potassium Chloride',
+        'K'     : 51e4,
+    },
+    {
+        'name'  : 'Monopotassium Phosphate, Haifa',
+        'P'     : 22.7e4,
+        'K'     : 28.8e4,
+    },
+    {
+        'name'  : 'Monoammonium Phosphate, NovaMAP',
+        'P'     : 61e4*P2O5_to_P,
+        'N NH4+': 12e4,
+    },
+    {
+        'name'  : 'Calcium Chloride, Krista',
+        'Ca'    : 39.1e4*CaO_to_Ca,
+    },
+    {
+        'name'  : 'Sodium Borates, Solubor',
+        'B'     : 20.5e4,
+    },
+    {
+        'name'  : 'Copper Sulfate',
+        'Cu'    : 25e4,
+    },
+    {
+        'name'  : 'Zinc Sulfate',
+        'Zn'    : 36e4,
+    },
+    {
+        'name'  : 'Iron DTPA, Sequestrene 330',
+        'Fe'    : 10e4,
+    },
+    {
+        'name'  : 'Manganese (II) Sulfate',
+        'Mn'    : 28e4,
+    },
+    {
+        'name'  : 'Sodium Molybdate',
+        'Mo'    : 39.6e4,
+    },
+    {
+        'name'  : 'S.T.E.M., Peters Professional',
+        'B'     : 1.35e4,
+        'Cu'    : 2.3e4,
+        'Fe'    : 7.5e4,
+        'Mn'    : 8e4,
+        'Mo'    : 0.04e4,
+        'Zn'    : 4.5e4,
+        // sulfur is omitted since that's negligible and may cause problems
+        // with the goal seek
+    },
+    {
+        'name'  : 'Phosphoric Acid, 85% (w/w)',
+        'P'     : 26.9e4,
+    },
+    {
+        'name'  : 'Nitric Acid, 68% (w/w)',
+        'N NO3-': 15.1e4,
+    },
+    {
+        'name'  : 'Sulfuric Acid, 37% (w/w)',
+        'S'     : 12.1e4,
+    },
+];
+for(i = 0; i < ingredients.length; i++) {
+    let asObj = ingredients[i];
+    let asArray = (new Array(elements.length)).fill(0);
+    let key;
+    let nsum = 0;
+    for(key in asObj) {
+        let v;
+        if(key != 'name') {
+            v = asObj[key] / 1e6;
+            asArray[elementToIndex[key]] = v;
+        }
+        if(key === 'N NO3-' || key === 'N NH4+') nsum += v;
+    }
+    asArray[elementToIndex['N total']] = nsum;
+    asObj.byElement = asArray;
+}
+
+let ingredientIn = [ ];
+let ingredientOut = [ ];
+let ingredientCheck = [ ];
+let actualIn;
+let actualOut = [ ];
+let goalOut = [ ];
+
+function stringToFloat(f) {
+    let r = parseFloat(f);
+    return isNaN(r) ? 0 : r;
+}
+
+function floatToString(f) {
+    let r = f.toFixed(f < 0.1 ? 3 : 2);
+    return (r == '0.000') ? '' : r;
+}
+
+function goalTo(key) {
+    let i;
+    for(i = 0; i < elements.length; i++) {
+        goalOut[i].val(floatToString(goals[key][i]));
+    }
+    updateGrid();
+}
+
+function goalToActual(key) {
+    let i;
+    for(i = 0; i < elements.length; i++) {
+        goalOut[i].val(actualOut[i].val());
+    }
+    updateGrid();
+}
+
+function clearIngredients() {
+    ingredientIn.forEach((e) => {
+        e.val('');
+    });
+    updateGrid();
+}
+
+function ingredientsAvailable(yes) {
+    ingredientCheck.forEach((e) => {
+        e.prop('checked', yes);
+    });
+    updateGrid();
+}
+
+function seekGoal() {
+    let a, i, j, k, n = ingredients.length;
+    let AtA = new Array(n);
+    let b = new Array(elements.length), Atb = new Array(n);
+    let x = new Array(n);
+    let mayChange = new Array(n), mayChangeAny = false;;
+
+    // convert the m by n system A*x = b to the n by n system At*A*x = At*b
+    // in the usual way
+    for(i = 0; i < n; i++) {
+        AtA[i] = new Array(n);
+        x[i] = stringToFloat(ingredientIn[i].val());
+        mayChange[i] = ingredientCheck[i].prop('checked');
+        mayChangeAny ||= mayChange[i];
+    }
+    if(!mayChangeAny) {
+        alert(
+           'Tick at least one box to enable goal seek to use that ingredient.');
+        return;
+    }
+
+    for(k = 0; k < elements.length; k++) {
+        b[k] = stringToFloat(goalOut[k].val());
+    }
+
+    for(i = 0; i < n; i++) {
+        for(j = 0; j < n; j++) {
+            let sum = 0;
+            for(k = 0; k < elements.length; k++) {
+                sum += ingredients[i].byElement[k] *
+                       ingredients[j].byElement[k];
+            }
+            AtA[i][j] = sum;
+        }
+
+        let sum = 0;
+        for(k = 0; k < elements.length; k++) {
+            sum += ingredients[i].byElement[k] * b[k];
+        }
+        Atb[i] = sum;
+    }
+
+/*
+    let s = '';
+    for(i = 0; i < n; i++) {
+        for(j = 0; j < n; j++) {
+            s += AtA[i][j].toString() + ' ';
+        }
+        s += ';\n';
+    }
+    console.log(s);
+*/
+
+    // now solve by gradient descent; wasteful but easy, and lets us constrain
+    // the inputs to never go negative
+    let d = new Array(n);
+    for(a = 0; a < 5000; a++) {
+        // compute d = AtA*x - Atb
+        let norm = 0;
+        for(i = 0; i < n; i++) {
+            let sum = 0;
+            for(j = 0; j < n; j++) {
+                sum += AtA[i][j]*x[j];
+            }
+            d[i] = sum - Atb[i];
+            norm += d[i]*d[i];
+        }
+
+        // largest eigenvalue of A*At is 0.62, abs(1-omega*0.62) < 1
+        // so we should converge okay
+        let omega = 2;
+        for(i = 0; i < n; i++) {
+            if(mayChange[i]) {
+                x[i] -= omega*d[i];
+                if(x[i] < 0) x[i] = 0;
+            }
+        }
+    }
+
+    for(i = 0; i < n; i++) {
+        ingredientIn[i].val(floatToString(x[i]));
+    }
+    updateGrid();
+}
+
+function updateGrid() {
+    let i, j;
+    let sum = (new Array(elements.length)).fill(0), sumIn = 0;
+
+    for(i = 0; i < ingredients.length; i++) {
+        let c = stringToFloat(ingredientIn[i].val());
+        sumIn += c;
+
+        for(j = 0; j < elements.length; j++) {
+            let x = c*ingredients[i].byElement[j];
+            ingredientOut[i][j].val(floatToString(x));
+            sum[j] = sum[j] + x;
+        }
+    }
+
+    actualIn.val(floatToString(sumIn));
+
+    for(j = 0; j < elements.length; j++) {
+        actualOut[j].val(floatToString(sum[j]));
+        let goalSum = stringToFloat(goalOut[j].val());
+        let average = (sum[j] + goalSum)/2;
+   
+        let r = 255, g = 255, b = 255;
+        if(average != 0) {
+            let abs = Math.abs(sum[j] - goalSum);
+            let rel = abs/average;
+            if(rel <  0) rel = 0;
+            if(rel > 0.4) rel = 0.4;
+            rel /= 0.4;
+
+            r = Math.round(rel*100 + 150);
+            g = Math.round((1 - rel)*100 + 150);
+            b = 150;
+        }
+        actualOut[j].css('background', 'rgb(' + r + ',' + g + ',' + b + ')');
+    }
+}
+
+function createGrid() {
+    let grid = $('#grid');
+
+    let header = $('<tr>');
+    header.append($('<th>'));
+    header.append($('<th></th>'));
+    header.append($('<th>ppm</th>'));
+    elements.forEach((element) => {
+        header.append($('<th>').text(element));
+    });
+    grid.append(header);
+
+    ingredients.forEach((ingredient) => {
+        let name = ingredient.name;
+        let byElement = ingredient.byElement;
+
+        let row = $('<tr>');
+
+        row.append($('<td>').text(name));
+
+        let use = $('<input type=checkbox tabindex=-1>');
+        // typical use would be computing recipes from pure salts, not
+        // premixes, and acids would typically be dosed for pH target and
+        // not for nutrient profile
+        if(!name.match(/Acid|S\.T\.E\.M\.|Masterblend|Jack/)) {
+            use.prop('checked', true);
+        }
+
+        row.append($('<td>').append(use));
+        ingredientCheck.push(use);
+        use.on('input', updateGrid);
+
+        let cin = $('<input type=text>');
+        row.append($('<td>').append(cin));
+        ingredientIn.push(cin);
+        cin.on('input', updateGrid);
+
+        let out = [ ];
+        byElement.forEach((element) => {
+            let cout = $('<input type=text readonly tabindex=-1>');
+            row.append($('<td>').append(cout));
+            out.push(cout);
+        });
+        grid.append(row);
+        ingredientOut.push(out);
+    });
+
+    let line = $('<tr class=line>');
+    line.append($('<td>'));
+    line.append($('<td>'));
+    line.append($('<td>'));
+    elements.forEach((element) => {
+        line.append($('<td>'));
+    });
+    grid.append(line);
+
+
+    let result = $('<tr>');
+    result.append($('<td>').text('Actual'));
+    result.append($('<td>'));
+    actualIn = $('<input type=text readonly tabindex=-1>');
+    result.append($('<td>').append(actualIn));
+    elements.forEach((element) => {
+        let cout = $('<input type=text readonly tabindex=-1>');
+        result.append($('<td>').append(cout));
+        actualOut.push(cout);
+    });
+    grid.append(result);
+
+    let goal = $('<tr>');
+    goal.append($('<td>').text('Goal'));
+    goal.append($('<td>'));
+    goal.append($('<td>'));
+    elements.forEach((element) => {
+        let cout = $('<input type=text>');
+        goal.append($('<td>').append(cout));
+        goalOut.push(cout);
+    });
+    grid.append(goal);
+
+    goalTo('UFL5');
+    updateGrid();
+}
+
+</script>
+
+</head>
+
+<body onLoad="createGrid();">
+<h1>Hydromisc Nutrient Calculator</h1>
+
+<table id=grid>
+</table>
+
+<p>Set goal to: &nbsp;&nbsp;
+<button onClick="goalTo('UFL1');">UFL Stage 1 (Young Tomato)</button>
+<button onClick="goalTo('UFL5');">UFL Stage 5 (Mature Tomato)</button>
+<button onClick="goalTo('CL');">Cornell Lettuce</button>
+<button onClick="goalTo('longashton');">Long Ashton</button>
+<button onClick="goalToActual();">Copy Actual</button>
+</p>
+<p>
+Set ingredients to: &nbsp;&nbsp;
+<button onClick="seekGoal();">Seek for Goal</button>
+<button onClick="ingredientsAvailable(true);">All Available</button>
+<button onClick="ingredientsAvailable(false);">None Available</button>
+<button onClick="clearIngredients();">All Zero</button>
+</p>
+
+<p>
+All inputs in ppm for final solution. This is equivalent to milligrams
+per liter of final solution, or grams per ten liters of concentrate
+assuming 1:100 dilution.
+</p>
+
+<p>
+Ingredients are from manufacturer datasheets where
+possible, and may differ from theory due to impurities and
+water of hydration. UFL nutrient profile goals are from <a
+href="https://edis.ifas.ufl.edu/pdf/CV/CV21600.pdf">HS796</a> by George
+J. Hochmuth and Robert C. Hochmuth, as are some ingredients. Goal seek
+is by least squares with equal weight on all elements, and is unlikely
+to be optimal considering plant physiology; use it as a starting point,
+for review and adjustment by hand.
+</p>
+
+<p>
+Use at your own risk, and double-check calculations before risking plants
+to them. If you find a bug then please open an issue on
+<a href="https://github.com/hydromisc/hydromisc">GitHub</a>. Take care that
+some ingredients may be dangerous in concentrated form, especially acids.
+</p>
+
+<p>This is free software. View source for the license.</p>
+
+</body>
+
+</html>
