@@ -31,7 +31,7 @@
 <style type=text/css>
     body {
         font-family: sans-serif;
-        font-size: 1.25em;
+        font-size: 1.205em;
     }
     td, input, button {
         font-size: 1em;
@@ -94,6 +94,7 @@ const K2O_to_K = 0.83;
 const CaO_to_Ca = 0.71;
 
 const ingredients = [
+    // all concentrations in ppm; 1e4 ppm = 1%
     {
         'name'  : 'Masterblend 4-18-38',
         'N NO3-': 3.5e4,
@@ -163,6 +164,11 @@ const ingredients = [
         'N NH4+': 12e4,
     },
     {
+        'name'  : 'Ammonium Sulfate, SoluGreen',
+        'N NH4+': 21e4,
+        'S'     : 24e4,
+    },
+    {
         'name'  : 'Calcium Chloride, Krista',
         'Ca'    : 39.1e4*CaO_to_Ca,
     },
@@ -193,7 +199,9 @@ const ingredients = [
     {
         'name'  : 'S.T.E.M., Peters Professional',
         'B'     : 1.35e4,
-        'Cu'    : 2.3e4,
+        // UFL says 3.2%, but datasheet says 2.3%; but datasheet ppm example
+        // implies 3.2%, so I think the datasheet has the typo
+        'Cu'    : 3.2e4,
         'Fe'    : 7.5e4,
         'Mn'    : 8e4,
         'Mo'    : 0.04e4,
@@ -504,7 +512,7 @@ function createGrid() {
 </p>
 <p>
 Set ingredients to: &nbsp;&nbsp;
-<button onClick="seekGoal();">Seek for Goal</button>
+<button onClick="seekGoal();">Goal Seek</button>
 <button onClick="ingredientsAvailable(true);">All Available</button>
 <button onClick="ingredientsAvailable(false);">None Available</button>
 <button onClick="clearIngredients();">All Zero</button>
@@ -517,14 +525,19 @@ assuming 1:100 dilution.
 </p>
 
 <p>
+Goal seek will adjust concentration of ingredients with box ticked,
+while leaving all other ingredient concentrations constant. Goal seek
+is by least squares with equal weight on all elements, and is unlikely
+to be optimal considering plant physiology; use it as a starting point,
+for review and adjustment by hand.
+</p>
+
+<p>
 Ingredients are from manufacturer datasheets where
 possible, and may differ from theory due to impurities and
 water of hydration. UFL nutrient profile goals are from <a
 href="https://edis.ifas.ufl.edu/pdf/CV/CV21600.pdf">HS796</a> by George
-J. Hochmuth and Robert C. Hochmuth, as are some ingredients. Goal seek
-is by least squares with equal weight on all elements, and is unlikely
-to be optimal considering plant physiology; use it as a starting point,
-for review and adjustment by hand.
+J. Hochmuth and Robert C. Hochmuth, as are some ingredients.
 </p>
 
 <p>
