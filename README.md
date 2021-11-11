@@ -264,7 +264,7 @@ die and then again with the middle one.
 
 To program the board, use any USB-to-serial adapter with +3V3 logic levels,
 for example an FT232R. Take care that you need access to RTS, which some
-such boards and cables don't break out. On CN14, connect:
+such boards and cables don't break out. On CN15, connect:
 
 * ground to ground
 * +3V3 to nothing
