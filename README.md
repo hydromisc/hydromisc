@@ -445,7 +445,7 @@ The firmware is licensed under the GPLv3 or later. The legal framework
 for open hardware is poorly-established, but you may build and sell, give
 away, or otherwise transfer any number of hydromisc boards, provided that:
 
-* any software loaded on the board is free software (as defined by any
+* any software loaded on the board is free software (as defined by
 any OSI-approved license), and that software is not intended primarily
 as a bootloader or other tool to load, program, or otherwise enable use
 of non-free software; and
