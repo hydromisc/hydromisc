@@ -23,7 +23,7 @@
 
 <head>
 <meta charset="utf-8">
-<title>Hydromisc Nutrient Calculator</title>
+<title>Hydroponic Nutrient Calculator</title>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js">
 </script>
@@ -486,6 +486,7 @@ function createGrid() {
         let cout = $('<input type=text>');
         goal.append($('<td>').append(cout));
         goalOut.push(cout);
+        cout.on('input', updateGrid);
     });
     grid.append(goal);
 
@@ -498,7 +499,7 @@ function createGrid() {
 </head>
 
 <body onLoad="createGrid();">
-<h1>Hydromisc Nutrient Calculator</h1>
+<h1>Hydroponic Nutrient Calculator</h1>
 
 <table id=grid>
 </table>
@@ -533,11 +534,11 @@ for review and adjustment by hand.
 </p>
 
 <p>
-Ingredients are from manufacturer datasheets where
-possible, and may differ from theory due to impurities and
-water of hydration. UFL nutrient profile goals are from <a
-href="https://edis.ifas.ufl.edu/pdf/CV/CV21600.pdf">HS796</a> by George
-J. Hochmuth and Robert C. Hochmuth, as are some ingredients.
+Ingredient element breakdowns are from manufacturer datasheets where
+possible. For individual fertilizer salts, this may differ from theory
+due to impurities and water of hydration. UFL nutrient profile goals are
+from <a href="https://edis.ifas.ufl.edu/pdf/CV/CV21600.pdf">HS796</a>
+by George J. Hochmuth and Robert C. Hochmuth, as are some ingredients.
 </p>
 
 <p>
