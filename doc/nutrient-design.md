@@ -29,7 +29,7 @@ hydroponic fertilizers must be complete, including essential trace
 elements too. The plants take the elements up as ions. For the metals
 that's usually just the corresponding cation (e.g., K as K+, Ca as Ca++),
 but for the other elements it may be a more complex ion (e.g. N as NH4+
-or NO3-, P as PO4---). A cation and and anion together form a salt,
+or NO3-, P as PO4---). A cation and an anion together form a salt,
 and fertilizers are blended from salts to achieve the desired element
 ratio. For example, potassium nitrate contributes both potassium 
 and nitrogen.
@@ -49,7 +49,7 @@ elements, but no calcium. This is because in a concentrated solution,
 the calcium will precipitate against phosphates or sulfates, dropping
 out as a sediment at the bottom of the tank that's unavailable to the
 plants. Complete fertilizers should always come in at least two parts[^4],
-once with the calcium and one with the sulfates and phosphates.
+one with the calcium and one with the sulfates and phosphates.
 
 That Masterblend product also contains very little magnesium[^5], and
 thus requires additional magnesium sulfate. Kits are readily available
@@ -68,7 +68,7 @@ Masterblend is a very common choice among amateur growers. It's working
 relatively well for me, but not ideally:
 
 1. My water has quite high alkalinity[^6], with initial pH around
-8.5. Ideal pH for most plants is around 6. So I use a large amount of
+8.5. Ideal pH for most plants is around 6.0. So I use a large amount of
 phosphoric acid[^7] to bring my pH down, which adds adds more phosphorus
 than the plants need to my nutrient profile. I'd like to decrease the
 phosphorus in the fertilizer to offset, but I can't remove the phosphorus
@@ -219,14 +219,15 @@ following back:
 
 ![](https://raw.githubusercontent.com/hydromisc/hydromisc/master/doc/nutrient-design-lab-analysis.png)
 
-This includes the contributions of both my nutrients and the source water.
-It's mostly as expected. P is very high[^11], but it was even higher with
-the Masterblend. I'm not sure why the Cu and Zn ended up below their limit
-of detection; I was concerned that something was still precipitating,
-but I don't see any sediment. I'm hoping their limit of detection was
-just slightly higher than the claimed 0.01 ppm. Sodium and chloride
-are both high, but I'm pretty sure that's just my source water and not
-impurities in my fertilizer salts.
+This includes the contributions of both my nutrients and the source
+water. It's mostly as expected, a little stronger than my design
+but everything scaled up ratiometrically[^11]. P is very high[^12],
+but it was even higher with the Masterblend. I'm not sure why the Cu
+and Zn ended up below their limit of detection; I was concerned that
+something was still precipitating, but I don't see any sediment. I'm
+hoping their limit of detection was just slightly higher than the claimed
+0.01 ppm. Sodium and chloride are both high, but I'm pretty sure that's
+just my source water and not impurities in my fertilizer salts.
 
 So I'm basically pleased with my recipe. I'm growing a few plants as a
 final test, and if those continue to look good I'll switch all my systems
@@ -260,11 +261,11 @@ magnesium, since there's no precipitation problem like with the
 calcium. Their goal might have been to allow growers with source water
 high in magnesium to decrease the magnesium sulfate dose to offset.
 
-[^6]: Though note that in water chemistry, alkalinity doesn't just mean
+[^6]: Note that in water chemistry, alkalinity doesn't just mean
 "high pH". Very roughly, alkalinity is a measure of the total amount
-of acid required to bring the pH down to a particular level, which is
-determined by various factors including the carbonate buffer system. Two
-solutions could have the same pH, but different alkaliniity.
+of strong acid required to bring the pH down to a particular level,
+which is determined by various factors including the carbonate buffer
+system. Two solutions could have the same pH, but different alkaliniity.
 
 [^7]: Sulfuric acid or nitric acid would have a more favorable effect
 on the nutrient profile, but they're more and much more dangerous
@@ -293,7 +294,11 @@ not necessarily correct for the solution being measured. This means the
 ppm" will be different. That's pretty confusing, so I prefer to work in
 EC only.
 
-[^11]: A professional would use sulfuric or nitric acid, but I don't
+[^11]: For example, target total nitrogen was 78 ppm and they measure
+88 + 9 = 97 ppm, 24% higher. Target potassium was 126 ppm and they
+measure 161 ppm, 28% higher, so a similar ratio.
+
+[^12]: A professional would use sulfuric or nitric acid, but I don't
 want that in my apartment. It's also possible to remove the alkalinity
 in the water by reverse osomosis instead of neutralizing it with acid,
 and that would solve the problem completely. Household RO systems
