@@ -63,7 +63,7 @@ growing for about a year with:
 0.2 g/L MgSO4
 </blockquote>
 
-For mature plants, I use a stronger solution in the same ratio. This
+For some mature plants, I use a stronger solution in the same ratio. This
 Masterblend is a very common choice among amateur growers. It's working
 relatively well for me, but not ideally:
 
@@ -284,15 +284,18 @@ it for me.
 calcium is Part A or Part B; I've seen it both ways.
 
 [^10]: The solution electrical conductivity, in units like microsiemens
-per cm, uS/cm. Instruments to measure EC are readily available, starting
-at just a few dollars. That EC is roughly linearly proportional to the
-total dissolved ionic content of the solution, but the scale factor varies
-with the mix of ions. Many EC meters will also read out in "ppm", but
-they're actually just multiplying EC by a constant scale factor that's
-not necessarily correct for the solution being measured. This means the
-"true ppm" as calculated from the actual mg/mL dosed and the "EC meter
-ppm" will be different. That's pretty confusing, so I prefer to work in
-EC only.
+per cm, uS/cm. This is used as a rough indication of the concentration of
+nutrient solutions, since that EC is roughly linearly proportional to the
+total dissolved content of ionic stuff. The scale factor varies with the
+specific ions, though. Instruments to measure EC are readily available,
+starting at just a few dollars. Many EC meters will also read out in
+"ppm", but they're actually just multiplying EC by a constant scale factor
+that's not exactly correct unless you're measuring pure NaCl solution
+(for those using 500 ppm/(mS/cm)) or pure KCl (for 700). This means the
+"true ppm" as calculated from the actual mg/L dosed and the "EC meter
+ppm" will be different, and the "EC meter ppm" may also be different
+with different meters. That's all pretty confusing, so I prefer to work
+in EC directly.
 
 [^11]: For example, target total nitrogen was 78 ppm and they measure
 88 + 9 = 97 ppm, 24% higher. Target potassium was 126 ppm and they
