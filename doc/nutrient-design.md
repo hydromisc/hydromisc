@@ -25,8 +25,8 @@ many growers to ignore everything except that N-P-K.
 But in hydroponics, there's no soil. This is true both in pure hydroponic
 methods like DWC, where the roots are directly in water, and in inert
 media like rockwool that provide mechanical support but no fertility. So
-hydroponic fertilizers must be complete, including essential trace
-elements too. The plants take the elements up as ions. For the metals
+hydroponic fertilizers must be complete, including all essential
+elements. The plants take the elements up as ions. For the metals
 that's usually just the corresponding cation (e.g., K as K+, Ca as Ca++),
 but for the other elements it may be a more complex ion (e.g. N as NH4+
 or NO3-, P as PO4---). A cation and an anion together form a salt,
