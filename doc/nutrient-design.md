@@ -160,8 +160,8 @@ sulfate as discussed above. I mixed the following concentrates:
 0.8 g Copper Sulfate<br>
 1.3 g Zinc Sulfate<br>
 14 g Manganese Sulfate<br>
-1 g Citric Acid<br>
-982.9 g Water
+100 g Phosphoric Acid, 75% w/w<br>
+883.9 g Water
 </blockquote>
 
 ##### Part A[^9]:
@@ -171,7 +171,6 @@ sulfate as discussed above. I mixed the following concentrates:
 20 g Ammonium Sulfate<br>
 250 g micronutrient sodium stock<br>
 100 g micronutrient sulfate stock<br>
-2 g Citric Acid<br>
 water to make 1 gal
 </blockquote>
 
@@ -193,8 +192,8 @@ zinc and manganese will precipitate as the hydroxide or carbonate at
 high pH. (Even if no carbonate is added to a solution, it will absorb
 CO2 from air.) Most fertilizers would get that acidification naturally
 from the monopotassium phosphate (which is an acid salt), but here none
-is present. Sulfuric acid would be better, but I had citric at hand and
-it seems to work.
+is present. Sulfuric acid would be better, but I had phosphoric at hand
+and it seems to work.
 
 The stock solution measurements are given by weight and not volume,
 since I have an accurate scale but no accurate liquid measures. The final
@@ -237,9 +236,20 @@ from mine; but my intent here is to provide a rough template for the
 process and considerations required to develop a fertilizer customized
 for your own needs.
 
-[^1]: Or 17 counting nickel, and certain rare plant species need
-additional elements. It's almost never necessary to consider any elements
-beyond those 16, though.
+*First published Nov 2021, updated Jan 2022:* The original version of this
+article used citric acid to acidify the nutrients and stock solution.
+This worked, but I got filamentous solids after about a month, which
+I suspect were fungi eating the citrate. I've switched to phosphoric
+acid and seen no more trouble. The test grows went well, with good yield
+and no obvious deficiencies. All my previous grows with the Masterblend
+showed rising EC with time, while this one showed falling, implying an
+improved match between the ions in the solution and the ions taken up
+by the plants. I'm now running my complete automated system with these
+nutrients and pleased with the growth.
+
+[^1]: Or 17 counting nickel for urease, and certain rare plant species
+need additional elements. It's almost never necessary to consider any
+elements beyond those 16, though.
 
 [^2]: Actually it's percent N directly, but it's percent equivalent P2O5
 and K2O. This doesn't mean the fertilizers actually contain phosphorus
@@ -270,7 +280,7 @@ system. Two solutions could have the same pH, but different alkaliniity.
 [^7]: Sulfuric acid or nitric acid would have a more favorable effect
 on the nutrient profile, but they're more and much more dangerous
 respectively. Citric acid would have no effect on the nutrient profile,
-but it breaks down quickly upon contact with the plants or reservoir
+but it breaks down upon contact with the plants or reservoir
 microbiota, becoming ineffective as quickly as within hours.
 
 [^8]: Papers studying plant response to those micronutrients generally
